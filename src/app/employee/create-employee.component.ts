@@ -3,7 +3,7 @@ import { FormGroup, FormControl, AbstractControl,FormArray } from '@angular/form
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { CustomValidators } from '../shared/custom.validators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { EmployeeService } from './employee.service';
 import { IEmployee } from './IEmployee';
 import { ISkill } from './ISkill';
@@ -15,9 +15,9 @@ import { ISkill } from './ISkill';
 })
 export class CreateEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
-  // This object will hold the messages to be displayed to the user
-// Notice, each key in this object has the same name as the
-// corresponding form control
+  employee: IEmployee;
+  pageTitle: string;
+
 formErrors = {
   'fullName': '',
   'email': '',
@@ -29,7 +29,7 @@ formErrors = {
   'proficiency': ''
 };
 
-// This object contains all the validation messages for this form
+
 validationMessages = {
   'fullName': {
     'required': 'Full Name is required.',
@@ -62,7 +62,8 @@ validationMessages = {
 
 constructor(private fb: FormBuilder,
   private route: ActivatedRoute,
-  private employeeService: EmployeeService) { }
+  private employeeService: EmployeeService,
+  private router: Router) { }
 
   
   ngOnInit() {
@@ -90,9 +91,23 @@ constructor(private fb: FormBuilder,
     this.route.paramMap.subscribe(params => {
       const empId = +params.get('id');
       if (empId) {
+        this.pageTitle = 'Edit Employee';
         this.getEmployee(empId);
+      } else {
+        this.pageTitle = 'Create Employee';
+        this.employee = {
+          id: null,
+          fullName: '',
+          contactPreference: '',
+          email: '',
+          phone: null,
+          skills: []
+        };
       }
     });
+
+
+
     
   }
   removeSkillButtonClick(skillGroupIndex: number): void {
@@ -104,10 +119,15 @@ constructor(private fb: FormBuilder,
   addSkillButtonClick(): void {
     (<FormArray>this.employeeForm.get('skills')).push(this.addSkillFormGroup());
   }
+  
   getEmployee(id: number) {
     this.employeeService.getEmployee(id)
       .subscribe(
-        (employee: IEmployee) => this.editEmployee(employee),
+        (employee: IEmployee) => {
+         
+          this.employee = employee;
+          this.editEmployee(employee);
+        },
         (err: any) => console.log(err)
       );
   }
@@ -183,11 +203,28 @@ logValidationErrors(group: FormGroup = this.employeeForm): void {
     //this.logValidationErrors(this.employeeForm);
     //console.log(this.formErrors);
   }
-  
   onSubmit(): void {
-    console.log(this.employeeForm.value);
-    
+    this.mapFormValuesToEmployeeModel();
+    if (this.employee.id) {
+      this.employeeService.updateEmployee(this.employee).subscribe(
+        () => this.router.navigate(['employees']),
+        (err: any) => console.log(err)
+      );
+    } else {
+      this.employeeService.addEmployee(this.employee).subscribe(
+        () => this.router.navigate(['employees']),
+        (err: any) => console.log(err)
+      );
+    }
   }
+  mapFormValuesToEmployeeModel() {
+    this.employee.fullName = this.employeeForm.value.fullName;
+    this.employee.contactPreference = this.employeeForm.value.contactPreference;
+    this.employee.email = this.employeeForm.value.emailGroup.email;
+    this.employee.phone = this.employeeForm.value.phone;
+    this.employee.skills = this.employeeForm.value.skills;
+  }
+
 
 
 }

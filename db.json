@@ -1,47 +1,75 @@
 {
-    "employees": [
+  "employees": [
+    {
+      "id": 1,
+      "fullName": "Neha ",
+      "contactPreference": "email",
+      "email": "neha1906sonare@tcs.com",
+      "phone": "7748022855",
+      "skills": [
         {
-            "id": 1,
-            "fullName": "Mark",
-            "contactPreference": "email",
-            "email": "mark@email.com",
-            "phone": "5641238971",
-            "skills": [
-                {
-                    "skillName": "C#",
-                    "experienceInYears": 1,
-                    "proficiency": "beginner"
-                },
-                {
-                    "skillName": "Java",
-                    "experienceInYears": 2,
-                    "proficiency": "intermediate"
-                }
-            ]
+          "skillName": "node",
+          "experienceInYears": ".5",
+          "proficiency": "intermediate"
         },
         {
-            "id": 2,
-            "fullName": "John",
-            "contactPreference": "phone",
-            "email": "john@email.com",
-            "phone": "3242138971",
-            "skills": [
-                {
-                    "skillName": "Angular",
-                    "experienceInYears": 2,
-                    "proficiency": "beginner"
-                },
-                {
-                    "skillName": "HTML",
-                    "experienceInYears": 2,
-                    "proficiency": "intermediate"
-                },
-                {
-                    "skillName": "LINQ",
-                    "experienceInYears": 3,
-                    "proficiency": "advanced"
-                }
-            ]
+          "skillName": "Angular",
+          "experienceInYears": ".5",
+          "proficiency": "beginner"
         }
-    ]
+      ]
+    },
+    {
+      "id": 2,
+      "fullName": "Shubham",
+      "contactPreference": "phone",
+      "email": "Shubham@tcs.com",
+      "phone": "8518055036",
+      "skills": [
+        {
+          "skillName": "Angular",
+          "experienceInYears": "1",
+          "proficiency": "advanced"
+        },
+        {
+          "skillName": "Node",
+          "experienceInYears": ".5",
+          "proficiency": "intermediate"
+        },
+        {
+          "skillName": "HTML",
+          "experienceInYears": 3,
+          "proficiency": "advanced"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "fullName": "Nisha",
+      "contactPreference": "email",
+      "email": "Nisha@tcs.com",
+      "phone": "7748022855",
+      "skills": [
+        {
+          "skillName": "Angular",
+          "experienceInYears": ".5",
+          "proficiency": "beginner"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "fullName": "Veena",
+      "contactPreference": "email",
+      "email": "neha06sonare@tcs.com",
+      "phone": "7748022855",
+      "skills": [
+        {
+          "skillName": "Nothing",
+          "experienceInYears": "25",
+          "proficiency": "advanced"
+        }
+      ]
+    }
+  ]
 }
